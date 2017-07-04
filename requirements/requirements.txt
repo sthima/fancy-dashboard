@@ -1,0 +1,4 @@
+django
+django-annoying
+django-extensions
+psycopg2
