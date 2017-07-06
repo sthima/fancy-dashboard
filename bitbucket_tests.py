@@ -1,6 +1,7 @@
 import arrow
 from pybitbucket.bitbucket import Client
 from pybitbucket.pullrequest import PullRequest
+from pybitbucket.repository import Repository
 from pybitbucket.auth import BasicAuthenticator
 
 bitbucket = Client(
@@ -20,11 +21,15 @@ def get_user_for_activity(activity):
             return value['author']
 
 
-for repo in ['netell', 'encanto']:
+repositories = [repo.slug for repo in Repository.find_repositories_by_owner_and_role(role='owner', client=bitbucket)]
+
+
+for repo in repositories:
     print("------- {repo} -------".format(repo=repo))
     for pr in PullRequest.find_pullrequests_for_repository_by_state(repo, client=bitbucket):
         print("...")
-
+        if type(pr) == dict:
+            continue
         activity = list(pr.activity())
 
         # Get approvals
@@ -36,7 +41,7 @@ for repo in ['netell', 'encanto']:
         print("Updated by:", get_user_for_activity(activity[0])['display_name'])
 
         # Get author
-        print("Author:", pr.author['display_name'])
+        print("Author:", pr.author.display_name)
 
         #
         print("Key:", "{repo}-{pr_id}".format(repo=repo.upper(), pr_id=pr.id))

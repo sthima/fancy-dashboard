@@ -14,13 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls.static import static
-from django.conf.urls import url, include
-from django.contrib import admin
+from django.conf.urls import url
 from django.conf import settings
 
-from .dashboard import urls as dashboard_urls
+from .views import pullrequests
+
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^dashboard/', include(dashboard_urls)),
+    url(r'^pullrequests/(?P<pk>[0-9]+)/', pullrequests.PullRequestDashboardView.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -4,3 +4,4 @@ django-extensions
 psycopg2
 pybitbucket
 arrow
+django-braces

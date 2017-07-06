@@ -45,6 +45,8 @@ THIRD_PARTY_APPS = [
 
 PROJECT_APPS = [
     'fancy_dashboard',
+    'fancy_dashboard.bitbucket',
+    'fancy_dashboard.dashboard',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
