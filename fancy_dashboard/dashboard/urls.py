@@ -21,5 +21,6 @@ from .views import pullrequests
 
 
 urlpatterns = [
+    url(r'^pullrequests/(?P<pk>[0-9]+)/json/', pullrequests.PullRequestDashboardJsonView.as_view()),
     url(r'^pullrequests/(?P<pk>[0-9]+)/', pullrequests.PullRequestDashboardView.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

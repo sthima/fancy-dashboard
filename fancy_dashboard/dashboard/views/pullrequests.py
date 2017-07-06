@@ -74,7 +74,7 @@ def get_pullrequests(username, password, email):
     return pull_requests
 
 
-class PullRequestDashboardView(JSONResponseMixin, DetailView):
+class PullRequestDashboardJsonView(JSONResponseMixin, DetailView):
     model = BitbucketClient
 
     def get(self, request, *args, **kwargs):
@@ -89,3 +89,8 @@ class PullRequestDashboardView(JSONResponseMixin, DetailView):
         }
 
         return self.render_json_response(context_dict)
+
+
+class PullRequestDashboardView(DetailView):
+    model = BitbucketClient
+    template_name = "dashboards/pull_requests.html"
