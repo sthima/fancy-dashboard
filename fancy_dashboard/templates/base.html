@@ -1,0 +1,55 @@
+{% load compress %}
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en" ng-app="fancyDashboard">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Nameless</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+    {% compress css %}
+      <link rel="stylesheet" href="{% static 'sass/base.sass' %}" type="text/x-sass" charset="utf-8">
+      <link rel="stylesheet" href="{% static 'sass/sidebar.sass' %}" type="text/x-sass" charset="utf-8">
+      <link rel="stylesheet" href="{% static 'sass/dashboard.sass' %}" type="text/x-sass" charset="utf-8">
+      <link rel="stylesheet" href="{% static 'sass/pullrequests.sass' %}" type="text/x-sass" charset="utf-8">
+    {% endcompress %}
+
+  </head>
+  <body class="gray-bg">
+    <div id="wrapper">
+      <div  id="sidebar-wrapper" class="sidebar">
+        <div id="sidebar-wrapper">
+          <div class="sidebar-logo">
+            <img src="{% static 'images/sidebar-logo.png' %}" class="sidebar-logo-image">
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <div class="dashboard-header">
+          <a ui-sref="pullrequests" ui-sref-active="active" class="dashboard-menu-item">Pull Requests</a>
+        </div>
+        {# <a ui-sref="hello" ui-sref-active="active">Hello</a>#}
+        <ui-view></ui-view>
+      </div>
+    </div>
+
+    <script src="//code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+    {% compress js %}
+      <script src="{% static 'bower_components/angular/angular.js' %}"></script>
+      <script src="{% static 'bower_components/angular-resource/angular-resource.js' %}"></script>
+      <script src="{% static 'bower_components/angular-ui-router/release/angular-ui-router.js' %}"></script>
+      <script type="text/coffeescript" src="{% static 'angular/app.coffee' %}"></script>
+
+      <!-- services -->
+      <script type="text/coffeescript" src="{% static 'angular/services/pullrequests.coffee' %}"></script>
+
+      <!-- controllers -->
+      <script type="text/coffeescript" src="{% static 'angular/controllers/pullrequests.coffee' %}"></script>
+    {% endcompress js %}
+  </body>
+</html>

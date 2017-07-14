@@ -1,0 +1,20 @@
+{
+  "name": "fancy-dashboard",
+  "homepage": "https://github.com/sthima/fancy-dashboard",
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.5",
+    "angular-ui-router": "^1.0.5",
+    "angular-resource": "^1.6.5"
+  }
+}

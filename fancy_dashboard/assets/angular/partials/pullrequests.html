@@ -1,0 +1,6 @@
+<div class="pullrequests-dashboard" ng-controller="PullRequestsController as prDashboard">
+  <div class="pullrequest-card" ng-repeat="pullrequest in prDashboard.pullrequests">
+    {{ pullrequest.key }}
+    {{ pullrequest.author }}
+  </div>
+</div>

@@ -19,8 +19,10 @@ from django.contrib import admin
 from django.conf import settings
 
 from .dashboard import urls as dashboard_urls
+from .views import RootView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^dashboard/', include(dashboard_urls)),
+    url(r'^$', RootView.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

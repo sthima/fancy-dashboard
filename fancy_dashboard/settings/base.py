@@ -41,6 +41,7 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
+    "compressor",
 ]
 
 PROJECT_APPS = [
@@ -143,7 +144,24 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'fancy_dashboard/assets/'),
+    # os.path.join(BASE_DIR, 'bower_components/'),
 ]
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # other finders..
+    'compressor.finders.CompressorFinder',
+)
+
+COMPRESS_PRECOMPILERS = (
+    ('text/coffeescript', 'coffee --compile --stdio'),
+    # ('text/less', 'lessc {infile} {outfile}'),
+    ('text/x-sass', 'sass {infile} {outfile}'),
+    # ('text/x-scss', 'sass --scss {infile} {outfile}'),
+    # ('text/stylus', 'stylus < {infile} > {outfile}'),
+    # ('text/foobar', 'path.to.MyPrecompilerFilter'),
+)
+
 
 # File upload
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
