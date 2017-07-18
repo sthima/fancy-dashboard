@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 from .version import VERSION  # NOQA
+from celery.schedules import crontab
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 dotdot = os.path.dirname
@@ -135,6 +136,21 @@ USE_L10N = True
 
 USE_TZ = True
 USE_THOUSAND_SEPARATOR = True
+
+# Celery
+CELERY_BROKER_URL = 'redis://redis:6379'
+CELERY_RESULT_BACKEND = 'redis://redis:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = TIME_ZONE
+CELERYBEAT_SCHEDULE = {
+    # crontab(hour=0, minute=0, day_of_week='saturday')
+    '': {  # example: 'file-backup'
+        'task': 'fancy_dashboard.dashboard.tasks.load_pullrequests',  # example: 'files.tasks.cleanup'
+        'schedule': crontab(minute='*/3')
+    },
+}
 
 
 # Static files (CSS, JavaScript, Images)

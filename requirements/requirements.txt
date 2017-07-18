@@ -6,3 +6,5 @@ pybitbucket
 arrow
 django-braces
 django_compressor
+celery
+redis

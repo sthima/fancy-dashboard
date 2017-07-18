@@ -1,6 +1,14 @@
 <div class="pullrequests-dashboard" ng-controller="PullRequestsController as prDashboard">
   <div class="pullrequest-card" ng-repeat="pullrequest in prDashboard.pullrequests">
-    {{ pullrequest.key }}
-    {{ pullrequest.author }}
+    <span class="pullrequest-card-color" ng-class="prDashboard.getPullRequestColor(pullrequest)"></span>
+    <div class="pullrequest-card-info">
+      <h3>{{ pullrequest.key }}</h3>
+      <h5>
+        Author
+      </h5>
+      <span class="text">{{ pullrequest.author }}</span>
+    </div>
+    <div class="pullrequest-card-approved">
+    </div>
   </div>
 </div>

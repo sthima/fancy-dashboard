@@ -10,5 +10,17 @@ services:
       - "8000:8000"
     depends_on:
       - db
+  worker:
+    build: .
+    command: celery -B -A fancy_dashboard worker -l info
+    volumes:
+      - ".:/dashboard/"
+    # ports:
+    #   - "8000:8000"
+    depends_on:
+      - db
+      - redis
   db:
     image: postgres
+  redis:
+    image: redis

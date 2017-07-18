@@ -8,7 +8,7 @@ class PullRequest(models.Model):
     author = models.CharField(max_length=500)
     task_count = models.IntegerField()
     build_count = models.IntegerField()
-    last_build = models.CharField(max_length=500)
+    last_build = models.CharField(max_length=500, null=True)
 
 
 class PullRequestApproval(models.Model):

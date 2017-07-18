@@ -40,6 +40,8 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
     {% compress js %}
+      <script src="{% static 'bower_components/moment/moment.js' %}"></script>
+
       <script src="{% static 'bower_components/angular/angular.js' %}"></script>
       <script src="{% static 'bower_components/angular-resource/angular-resource.js' %}"></script>
       <script src="{% static 'bower_components/angular-ui-router/release/angular-ui-router.js' %}"></script>
