@@ -10,10 +10,14 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
     {% compress css %}
+      <link rel="stylesheet" href="{% static 'bower_components/font-awesome/css/font-awesome.css' %}" type="text/css" charset="utf-8">
+      <link rel="stylesheet" href="{% static 'bower_components/ubuntu-fontface/ubuntu.css' %}" type="text/css" charset="utf-8">
+
       <link rel="stylesheet" href="{% static 'sass/base.sass' %}" type="text/x-sass" charset="utf-8">
       <link rel="stylesheet" href="{% static 'sass/sidebar.sass' %}" type="text/x-sass" charset="utf-8">
       <link rel="stylesheet" href="{% static 'sass/dashboard.sass' %}" type="text/x-sass" charset="utf-8">
       <link rel="stylesheet" href="{% static 'sass/pullrequests.sass' %}" type="text/x-sass" charset="utf-8">
+      <link rel="stylesheet" href="{% static 'sass/utils.sass' %}" type="text/x-sass" charset="utf-8">
     {% endcompress %}
 
   </head>

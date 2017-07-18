@@ -1,0 +1,7 @@
+Pull Requests:
+* Update existing PRs
+* Delete (or mark as merged) merged PRs
+* Fix celery
+
+Releases:
+* Everything

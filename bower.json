@@ -16,6 +16,8 @@
     "angular": "^1.6.5",
     "angular-ui-router": "^1.0.5",
     "angular-resource": "^1.6.5",
-    "moment": "^2.18.1"
+    "moment": "^2.18.1",
+    "font-awesome": "fontawesome#^4.7.0",
+    "ubuntu-fontface": "^0.1.13"
   }
 }

@@ -3,12 +3,33 @@
     <span class="pullrequest-card-color" ng-class="prDashboard.getPullRequestColor(pullrequest)"></span>
     <div class="pullrequest-card-info">
       <h3>{{ pullrequest.key }}</h3>
+
       <h5>
         Author
       </h5>
       <span class="text">{{ pullrequest.author }}</span>
+
+      <div class="mt10">
+        <span class="text mr45">
+          <i class="fa fa-check-square-o text-muted mr5"></i>{{ pullrequest.task_count }} Tasks
+        </span>
+
+        <span class="text">
+          <i class="fa fa-refresh text-muted mr5"></i>{{ pullrequest.build_count }} Builds
+        </span>
+      </div>
+
+      <h5 class="mt15">
+        Last Update
+      </h5>
+      <span class="text">{{ pullrequest.updated_by }}, {{ pullrequest.updated_on | date:"dd/MM/yy HH:mm" }}</span>
+
     </div>
-    <div class="pullrequest-card-approved">
+    <div class="pullrequest-card-approvals">
+      <img class="pullrequest-approval" ng-repeat="approval in pullrequest.approvals | limitTo: 2" ng-src="{{ approval.avatar }}">
+      <div ng-if="pullrequest.approvals.length >= 3" class="pullrequest-approval pullrequest-approval-extra">
+        <span>+{{ pullrequest.approvals.length - 2}}</span>
+      </div>
     </div>
   </div>
 </div>

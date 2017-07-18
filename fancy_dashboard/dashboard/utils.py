@@ -33,16 +33,6 @@ def get_pullrequests(username, password, email):
             pull_request = PullRequestModel()
             activity = list(pr.activity())
 
-            # Get approvals
-            approvals = filter(lambda a: 'approval' in a, activity)
-
-            db_approvals = []
-            for a in approvals:
-                approval = PullRequestApproval()
-                approval.display_name = a['approval']['user']['display_name']
-                approval.avatar = a['approval']['user']['links']['avatar']
-            # pull_request.approvals = db_approvals
-
             # Get last update
             pull_request.updated_on = arrow.get(pr.updated_on).datetime
             pull_request.updated_by = get_user_for_activity(activity[0])['display_name']
@@ -67,5 +57,12 @@ def get_pullrequests(username, password, email):
             if len(statuses):
                 pull_request.last_build = statuses[0]['state']
             pull_request.save()
-            pull_request.approvals = db_approvals
-            pull_request.save()
+
+            # Get approvals
+            approvals = filter(lambda a: 'approval' in a, activity)
+            for a in approvals:
+                approval = PullRequestApproval()
+                approval.display_name = a['approval']['user']['display_name']
+                approval.avatar = a['approval']['user']['links']['avatar']['href']
+                approval.pullrequest = pull_request
+                approval.save()

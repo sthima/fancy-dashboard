@@ -1,4 +1,5 @@
 .pullrequest-card
+  font-family: Ubuntu
   width: 396px
   height: 206px
   border-radius: 4px
@@ -8,6 +9,7 @@
   margin: 15px 15px 0px 0px
   padding: 20px 24px 20px 16px
   float: left
+  position: relative
 
 .pullrequest-card-color
   height: 100%
@@ -21,6 +23,8 @@
   margin-left: 25px
   float: left
   display: inline-block
+  .text-muted
+    color: #7f82a4
   .text
     font-family: Ubuntu
     font-size: 18px
@@ -41,7 +45,26 @@
     font-weight: 300
     text-align: left
     color: #7f82a4
-    margin-bottom: 8px
+    margin-bottom: 4px
+
+.pullrequest-card-approvals
+  position: absolute
+  right: 16px
+  top: 17px
+.pullrequest-approval
+  border-radius: 50%
+  width: 33px
+  height: 33px
+  margin-left: -13px
+  display: inline-block
+  vertical-align: top
+  float: left
+.pullrequest-approval-extra
+  background: #7f82a4
+  font-size: 18px
+  text-align: center
+  span
+    vertical-align: middle
 
 .pullrequest-extremely-due
   background-color: #ce3e3e
