@@ -2,7 +2,7 @@
 from __future__ import absolute_import, unicode_literals
 from celery import shared_task
 
-from fancy_dashboard.client.models import BitbucketClient
+from fancy_dashboard.bitbucket.models.client import BitbucketClient
 from .utils import get_pullrequests
 
 
@@ -10,7 +10,5 @@ from .utils import get_pullrequests
 def load_pullrequests():
     for client in BitbucketClient.objects.all():
         get_pullrequests(
-            client.username,
-            client.password,
-            client.email,
+            client,
         )

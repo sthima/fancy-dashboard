@@ -144,9 +144,10 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = TIME_ZONE
+CELERYBEAT_MAX_LOOP_INTERVAL = 10
 CELERYBEAT_SCHEDULE = {
     # crontab(hour=0, minute=0, day_of_week='saturday')
-    '': {  # example: 'file-backup'
+    'pullrequest-fetcher': {  # example: 'file-backup'
         'task': 'fancy_dashboard.dashboard.tasks.load_pullrequests',  # example: 'files.tasks.cleanup'
         'schedule': crontab(minute='*/3')
     },

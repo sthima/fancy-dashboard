@@ -10,9 +10,7 @@ class LoadPullRequestJsonView(JSONResponseMixin, View):
     def get(self, request, *args, **kwargs):
         for client in BitbucketClient.objects.all():
             get_pullrequests(
-                client.username,
-                client.password,
-                client.email,
+                client,
             )
 
         return self.render_json_response([])

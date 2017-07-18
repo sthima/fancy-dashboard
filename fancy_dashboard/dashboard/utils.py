@@ -15,22 +15,32 @@ def get_user_for_activity(activity):
             return value['author']
 
 
-def get_pullrequests(username, password, email):
+# def get_pullrequests(username, password, email):
+def get_pullrequests(client):
     bitbucket = Client(
         BasicAuthenticator(
-            username,  # Username
-            password,  # Password/API Key
-            email,  # E-mail
+            client.username,  # Username
+            client.password,  # Password/API Key
+            client.email,  # E-mail
         )
     )
 
     repositories = [repo.slug for repo in Repository.find_repositories_by_owner_and_role(role='owner', client=bitbucket)]
+    existing_keys = []
 
     for repo in repositories:
         for pr in PullRequest.find_pullrequests_for_repository_by_state(repo, client=bitbucket):
             if type(pr) == dict:
                 continue
-            pull_request = PullRequestModel()
+            pull_request_key = "{repo}-{pr_id}".format(repo=repo.upper(), pr_id=pr.id)
+            existing_keys.append(pull_request_key)
+            pull_request = PullRequestModel.objects.filter(client=client).filter(key=pull_request_key).first()
+
+            if not pull_request:
+                pull_request = PullRequestModel()
+                pull_request.key = pull_request_key
+                pull_request.client = client
+
             activity = list(pr.activity())
 
             # Get last update
@@ -39,9 +49,6 @@ def get_pullrequests(username, password, email):
 
             # Get author
             pull_request.author = pr.author.display_name
-
-            #
-            pull_request.key = "{repo}-{pr_id}".format(repo=repo.upper(), pr_id=pr.id)
 
             # Get task count
             pull_request.task_count = pr.task_count
@@ -58,6 +65,9 @@ def get_pullrequests(username, password, email):
                 pull_request.last_build = statuses[0]['state']
             pull_request.save()
 
+            if pull_request.approvals.count():
+                pull_request.approvals.all().delete()
+
             # Get approvals
             approvals = filter(lambda a: 'approval' in a, activity)
             for a in approvals:
@@ -66,3 +76,4 @@ def get_pullrequests(username, password, email):
                 approval.avatar = a['approval']['user']['links']['avatar']['href']
                 approval.pullrequest = pull_request
                 approval.save()
+    PullRequestModel.objects.filter(client=client).exclude(key__in=existing_keys).all().delete()

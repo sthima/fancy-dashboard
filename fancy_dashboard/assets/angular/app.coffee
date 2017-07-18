@@ -5,6 +5,8 @@ app.config ($stateProvider) ->
     name: 'pullrequests'
     url: '/pullrequests'
     templateUrl: "/static/angular/partials/pullrequests.html"
+  $stateProvider.state
+    name: 'releases'
+    url: '/releases'
+    templateUrl: "/static/angular/partials/releases.html"
   return
-    # .when "/releases",
-    #   templateUrl: "/static/angular/partials/releases.html"

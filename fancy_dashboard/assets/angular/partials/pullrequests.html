@@ -1,5 +1,5 @@
 <div class="pullrequests-dashboard" ng-controller="PullRequestsController as prDashboard">
-  <div class="pullrequest-card" ng-repeat="pullrequest in prDashboard.pullrequests">
+  <div class="pullrequest-card" ng-repeat="pullrequest in prDashboard.pullrequests track by pullrequest.key">
     <span class="pullrequest-card-color" ng-class="prDashboard.getPullRequestColor(pullrequest)"></span>
     <div class="pullrequest-card-info">
       <h3>{{ pullrequest.key }}</h3>
@@ -11,11 +11,18 @@
 
       <div class="mt10">
         <span class="text mr45">
-          <i class="fa fa-check-square-o text-muted mr5"></i>{{ pullrequest.task_count }} Tasks
+          <i class="fa fa-check-square-o text-muted mr5"></i>
+          <span>{{ pullrequest.task_count }} Tasks </span>
         </span>
 
         <span class="text">
-          <i class="fa fa-refresh text-muted mr5"></i>{{ pullrequest.build_count }} Builds
+          <i class="fa fa-refresh text-muted mr5"></i>
+          <span class="mr5"> {{ pullrequest.build_count }} Builds </span>
+          <span ng-if="pullrequest.build_count">
+            <i ng-if="pullrequest.last_build=='SUCCESSFUL'" class="fa fa-check-circle build-success"></i>
+            <i ng-if="pullrequest.last_build=='FAILED'" class="fa fa-check-circle build-error"></i>
+            <i ng-if="pullrequest.last_build=='INPROGRESS'" class="fa fa-circle-o-notch fa-spin build-in-progress"></i>
+          </span>
         </span>
       </div>
 
