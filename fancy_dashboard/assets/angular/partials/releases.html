@@ -1,1 +1,13 @@
-<h3>I'm a release dashboard!</h3>
+<div class="releases" ng-controller="ReleasesController as releasesDashboard">
+  <div ng-repeat="release in releasesDashboard.releases" class="release">
+    <h4>{{ release.project }} {{ release.version }}</h4>
+    <uib-progress max="releasesDashboard.getIssuesCount(release)">
+      <uib-bar ng-repeat="release_status in release.statuses" ng-if="release_status.count" value="release_status.count" type="{{ release_status.style }}">
+        <span class="progress-bar-label">{{ release_status.count }} {{ release_status.status }}<span>
+      </uib-bar>
+      <uib-bar ng-if="releasesDashboard.getIssuesCount(release) == 0" value="0" type="default">
+        <span class="progress-bar-label">No Issues<span>
+      </uib-bar>
+    </uib-progress>
+  </div>
+</div>

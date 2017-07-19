@@ -6,11 +6,26 @@ from ..models.releases import Release, ReleaseStatus
 
 # TODO user should configure that
 STATUSES = OrderedDict([
-    ('Open', ['Open', 'Backlog', 'Selected for Development', ]),
-    ('WIP', ['In Progress', 'Waiting Pull Request', ]),
-    ('PR', ['Code Revision', ]),
-    ('Test', ['To Test', 'Testing', ]),
-    ('Done', ['Closed', 'Done', ]),
+    ('Open', {
+        'statuses': ['Open', 'Backlog', 'Selected for Development', ],
+        'style': 'purple',
+    }),
+    ('WIP', {
+        'statuses': ['In Progress', 'Waiting Pull Request', ],
+        'style': 'light-blue',
+    }),
+    ('PR', {
+        'statuses': ['Code Revision', ],
+        'style': 'yellow',
+    }),
+    ('Test', {
+        'statuses': ['To Test', 'Testing', ],
+        'style': 'green',
+    }),
+    ('Done', {
+        'statuses': ['Closed', 'Done', ],
+        'style': 'lime-green',
+    }),
 ])
 
 
@@ -31,6 +46,7 @@ def get_releases(client):
 
             if not release:
                 release = Release()
+                print(project.key, version.name)
                 release.project = project.key
                 release.version = version.name
                 release.client = client
@@ -39,12 +55,14 @@ def get_releases(client):
             release.statuses.all().delete()
 
             issues = jira.search_issues("project=%s AND fixVersion=%s" % (version.projectId, version.id))
-            for key, statuses in STATUSES.items():
+            for key, value in STATUSES.items():
+                statuses = value['statuses']
                 found_issues = [issue for issue in issues if issue.fields.status.name in statuses]
 
                 release_status = ReleaseStatus()
                 release_status.release = release
                 release_status.status = key
+                release_status.style = value['style']
                 release_status.count = len(found_issues)
                 release_status.save()
         clear_query.exclude(version__in=existing_versions).all().delete()

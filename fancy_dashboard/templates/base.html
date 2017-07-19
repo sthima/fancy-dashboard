@@ -17,6 +17,7 @@
       <link rel="stylesheet" href="{% static 'sass/sidebar.sass' %}" type="text/x-sass" charset="utf-8">
       <link rel="stylesheet" href="{% static 'sass/dashboard.sass' %}" type="text/x-sass" charset="utf-8">
       <link rel="stylesheet" href="{% static 'sass/pullrequests.sass' %}" type="text/x-sass" charset="utf-8">
+      <link rel="stylesheet" href="{% static 'sass/releases.sass' %}" type="text/x-sass" charset="utf-8">
       <link rel="stylesheet" href="{% static 'sass/utils.sass' %}" type="text/x-sass" charset="utf-8">
     {% endcompress %}
 
@@ -48,15 +49,18 @@
       <script src="{% static 'bower_components/moment/moment.js' %}"></script>
 
       <script src="{% static 'bower_components/angular/angular.js' %}"></script>
+      <script src="{% static 'bower_components/angular-bootstrap/ui-bootstrap-tpls.js' %}"></script>
       <script src="{% static 'bower_components/angular-resource/angular-resource.js' %}"></script>
       <script src="{% static 'bower_components/angular-ui-router/release/angular-ui-router.js' %}"></script>
       <script type="text/coffeescript" src="{% static 'angular/app.coffee' %}"></script>
 
       <!-- services -->
       <script type="text/coffeescript" src="{% static 'angular/services/pullrequests.coffee' %}"></script>
+      <script type="text/coffeescript" src="{% static 'angular/services/releases.coffee' %}"></script>
 
       <!-- controllers -->
       <script type="text/coffeescript" src="{% static 'angular/controllers/pullrequests.coffee' %}"></script>
+      <script type="text/coffeescript" src="{% static 'angular/controllers/releases.coffee' %}"></script>
     {% endcompress js %}
   </body>
 </html>

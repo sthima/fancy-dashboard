@@ -1,4 +1,8 @@
-app = angular.module "fancyDashboard", ["ngResource", "ui.router"]
+app = angular.module "fancyDashboard", [
+  "ngResource",
+  "ui.router",
+  "ui.bootstrap",
+]
 
 app.config ($stateProvider) ->
   $stateProvider.state

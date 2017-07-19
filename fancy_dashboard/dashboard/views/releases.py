@@ -15,6 +15,7 @@ class ReleaseDashboardJsonView(JSONResponseMixin, View):
                 'statuses': [{
                     'status': release_status.status,
                     'count': release_status.count,
+                    'style': release_status.style,
                 } for release_status in release.statuses.all()],
             }]
 
