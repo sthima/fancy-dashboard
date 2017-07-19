@@ -8,3 +8,4 @@ django-braces
 django_compressor
 celery
 redis
+jira

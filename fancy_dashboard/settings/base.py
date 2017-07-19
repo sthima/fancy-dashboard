@@ -48,6 +48,7 @@ THIRD_PARTY_APPS = [
 PROJECT_APPS = [
     'fancy_dashboard',
     'fancy_dashboard.bitbucket',
+    'fancy_dashboard.jira',
     'fancy_dashboard.dashboard',
 ]
 

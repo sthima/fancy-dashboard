@@ -18,9 +18,11 @@ from django.conf.urls import url
 from django.conf import settings
 
 from .views import pullrequests
+from .views import releases
 
 
 urlpatterns = [
     url(r'^pullrequests/load/$', pullrequests.LoadPullRequestJsonView.as_view()),
     url(r'^pullrequests/$', pullrequests.PullRequestDashboardJsonView.as_view()),
+    url(r'^releases/$', releases.ReleaseDashboardJsonView.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

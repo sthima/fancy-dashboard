@@ -23,6 +23,10 @@ app.conf.update(
             'task': 'fancy_dashboard.dashboard.tasks.load_pullrequests',  # example: 'files.tasks.cleanup'
             'schedule': crontab(minute='*/3')
         },
+        'release-fetcher': {  # example: 'file-backup'
+            'task': 'fancy_dashboard.dashboard.tasks.load_releases',  # example: 'files.tasks.cleanup'
+            'schedule': crontab(minute='*/2')
+        },
     }
 )
 # app.config_from_object('django.conf:settings', namespace=['CELERY', 'CELERYBEAT'])
