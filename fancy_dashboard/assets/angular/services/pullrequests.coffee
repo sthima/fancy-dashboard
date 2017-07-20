@@ -1,6 +1,6 @@
 class PullRequests
   constructor: ($resource) ->
-    @api = $resource '/dashboard/pullrequests/',
+    @api = $resource '/dashboard/pullrequests/'
 
   query: (group_id)->
     @api.query()

@@ -1,5 +1,6 @@
 app = angular.module "fancyDashboard", [
   "ngResource",
+  "ngAnimate",
   "ui.router",
   "ui.bootstrap",
 ]

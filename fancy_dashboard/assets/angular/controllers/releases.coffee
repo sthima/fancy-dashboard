@@ -1,7 +1,10 @@
 class ReleasesController
   constructor: (Releases)->
     @resource = Releases
+    @loaded = false
     @releases = @resource.query()
+    @releases.$promise.finally(=> @loaded = true)
+
 
   getIssuesCount: (release) ->
     issuesCount = 0

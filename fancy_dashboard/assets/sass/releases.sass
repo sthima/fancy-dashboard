@@ -19,8 +19,13 @@ $progress-bar-height: 53px
     font-size: 18px
     color: #2e2e36
     line-height: $progress-bar-height
+    font-weight: 500
+  .progress
+    background: transparent
   .progress-bar
     height: $progress-bar-height
+    &:not(:last-child)
+      margin-right: 8px
 
 .progress-bar-lime-green
   background: #3cd358

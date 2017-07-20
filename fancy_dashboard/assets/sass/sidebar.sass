@@ -16,7 +16,8 @@ body
   position: fixed
   height: 100%
   width: $sidebar-width
-  background-image: linear-gradient(#27262d, #27262d), linear-gradient(to top, #2c2c34, #32323b)
+  background: #27262d
+  background: linear-gradient(#27262d, #27262d), linear-gradient(to top, #2c2c34, #32323b)
   left: 0
 
 .sidebar-logo
@@ -24,12 +25,15 @@ body
   width: $sidebar-width
   height: $sidebar-width
   position: relative
-  .sidebar-logo-image
-    position: absolute
-    bottom: 50%
-    right: 50%
-    transform: translate(50%, 50%)
-
+  display: table
+  overflow: hidden
+.sidebar-logo-helper
+  top: 50%
+  display: table-cell
+  vertical-align: middle
+.sidebar-logo-content
+  margin: 0
+  text-align: center
 
 
 // #wrapper

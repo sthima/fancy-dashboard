@@ -1,16 +1,14 @@
 class PullRequestsController
   constructor: (PullRequests)->
     @resource = PullRequests
+    @loaded = false
     @pullrequests = @resource.query()
-    @checkAll = {}
+    @pullrequests.$promise.then(=> @loaded = true)
 
   getPullRequestColor: (pull_request) ->
     now = moment new Date()
-    console.log now
     last_update = moment pull_request.updated_on
-    console.log last_update
     duration = moment.duration(now.diff last_update)
-    console.log duration
     hours = duration.asHours()
     color = ''
     if hours > 16

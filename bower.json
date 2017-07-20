@@ -19,6 +19,10 @@
     "moment": "^2.18.1",
     "font-awesome": "fontawesome#^4.7.0",
     "ubuntu-fontface": "^0.1.13",
-    "angular-bootstrap": "^2.5.0"
+    "angular-bootstrap": "^2.5.0",
+    "bootstrap": "4.0",
+    "tether": "1.4.0",
+    "jquery": "3.1.1",
+    "angular-animate": "^1.6.5"
   }
 }
