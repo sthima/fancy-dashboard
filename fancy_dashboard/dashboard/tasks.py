@@ -18,8 +18,7 @@ def load_pullrequests():
 
 @shared_task
 def load_releases():
-    pass
-    # for client in JiraClient.objects.all():
-    #     get_releases(
-    #         client,
-    #     )
+    for client in JiraClient.objects.all():
+        get_releases(
+            client,
+        )
