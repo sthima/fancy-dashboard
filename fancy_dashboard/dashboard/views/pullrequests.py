@@ -29,6 +29,7 @@ class PullRequestDashboardJsonView(JSONResponseMixin, View):
                 'task_count': pullrequest.task_count,
                 'build_count': pullrequest.build_count,
                 'last_build': pullrequest.last_build,
+                'url': pullrequest.url,
                 'approvals': [{
                     'display_name': approval.display_name,
                     'avatar': approval.avatar,

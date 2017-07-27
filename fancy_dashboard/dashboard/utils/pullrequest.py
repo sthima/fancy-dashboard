@@ -63,6 +63,7 @@ def get_pullrequests(client):
             pull_request.last_build = None
             if len(statuses):
                 pull_request.last_build = statuses[0]['state']
+            pull_request.url = pr.links['html']['href']
             pull_request.save()
 
             if pull_request.approvals.count():

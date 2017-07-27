@@ -2,7 +2,7 @@
   <div class="pullrequest-card" ng-repeat="pullrequest in prDashboard.pullrequests track by pullrequest.key">
     <span class="pullrequest-card-color" ng-class="prDashboard.getPullRequestColor(pullrequest)"></span>
     <div class="pullrequest-card-info">
-      <h3>{{ pullrequest.key }}</h3>
+      <h3><a ng-href="{{ pullrequest.url }}">{{ pullrequest.key }}</a></h3>
 
       <h5>
         Author

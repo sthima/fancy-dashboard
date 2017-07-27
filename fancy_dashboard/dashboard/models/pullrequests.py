@@ -11,6 +11,7 @@ class PullRequest(models.Model):
     task_count = models.IntegerField()
     build_count = models.IntegerField()
     last_build = models.CharField(max_length=500, null=True)
+    url = models.TextField()
 
     client = models.ForeignKey(BitbucketClient, related_name='pullrequests')
 
