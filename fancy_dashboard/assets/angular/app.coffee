@@ -14,4 +14,8 @@ app.config ($stateProvider) ->
     name: 'releases'
     url: '/releases'
     templateUrl: "/static/angular/partials/releases.html"
+  $stateProvider.state
+    name: 'sprint'
+    url: '/sprint'
+    templateUrl: "/static/angular/partials/sprints.html"
   return

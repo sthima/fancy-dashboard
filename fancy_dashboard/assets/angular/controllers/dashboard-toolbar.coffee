@@ -2,6 +2,7 @@ class DashboardToolbarController
   constructor: (@$state, @$timeout)->
     @rotateSlice = [
       'pullrequests',
+      'sprint',
       'releases',
     ]
     @rotateTime = '30'

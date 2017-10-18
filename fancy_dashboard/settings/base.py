@@ -43,6 +43,7 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     "compressor",
+    "rest_framework",
 ]
 
 PROJECT_APPS = [
