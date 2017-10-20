@@ -19,6 +19,7 @@ from django.conf import settings
 
 from .views import pullrequests
 from .views import releases
+from .views import sprints
 
 
 urlpatterns = [

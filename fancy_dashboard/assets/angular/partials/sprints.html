@@ -1,0 +1,17 @@
+<div class="sprint-dashboard" ng-controller="SprintsController as vm">
+  <div  ng-repeat="column in vm.columns" class="sprint-column-outer">
+    <div class="sprint-column">
+      <span class="column-header">{{ column }}</span>
+
+      <div ng-repeat="issue in vm.issues | filter:{status:column}" class="issue-card">
+        <h3><a ng-href="{{ issue.url }}">{{ issue.key }}</a></h3>
+        <!-- 'key', 'assignee', 'issue_type', 'project', 'status' -->
+        <span class="issue-type">
+          <img ng-src="{{ issue.issue_type.icon }}">
+          <span>{{ issue.issue_type.name }}</span>
+        </span>
+        <img class="avatar" ng-if="issue.assignee" ng-src="{{ issue.assignee.avatar }}">
+      </div>
+    </div>
+  </div>
+</div>

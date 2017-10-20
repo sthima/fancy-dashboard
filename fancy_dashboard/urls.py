@@ -17,11 +17,17 @@ from django.conf.urls.static import static
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
+from rest_framework import routers
 
 from .dashboard import urls as dashboard_urls
+from .dashboard.views.sprints import SprintViewSet
 from .views import RootView
 
+router = routers.DefaultRouter()
+router.register(r'sprint', SprintViewSet)
+
 urlpatterns = [
+    url(r'^v1/', include(router.urls)),
     url(r'^admin/', admin.site.urls),
     url(r'^dashboard/', include(dashboard_urls)),
     url(r'^$', RootView.as_view()),

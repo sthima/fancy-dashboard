@@ -17,6 +17,7 @@
       <link rel="stylesheet" href="{% static 'sass/sidebar.sass' %}" type="text/x-sass" charset="utf-8">
       <link rel="stylesheet" href="{% static 'sass/dashboard.sass' %}" type="text/x-sass" charset="utf-8">
       <link rel="stylesheet" href="{% static 'sass/pullrequests.sass' %}" type="text/x-sass" charset="utf-8">
+      <link rel="stylesheet" href="{% static 'sass/sprint.sass' %}" type="text/x-sass" charset="utf-8">
       <link rel="stylesheet" href="{% static 'sass/releases.sass' %}" type="text/x-sass" charset="utf-8">
       <link rel="stylesheet" href="{% static 'sass/utils.sass' %}" type="text/x-sass" charset="utf-8">
     {% endcompress %}
@@ -38,6 +39,7 @@
       <div class="container-fluid">
         <div class="dashboard-header">
           <a ui-sref="pullrequests" ui-sref-active="active" class="dashboard-menu-item">Pull Requests</a>
+          <a ui-sref="sprint" ui-sref-active="active" class="dashboard-menu-item">Sprint</a>
           <a ui-sref="releases" ui-sref-active="active" class="dashboard-menu-item">Releases</a>
           <span class="pull-right dashboard-toolbar" ng-controller="DashboardToolbarController as toolbar">
             <i class="fa fa-refresh"> </i>{{ toolbar.rotateTime }}
@@ -70,11 +72,13 @@
 
       <!-- services -->
       <script type="text/coffeescript" src="{% static 'angular/services/pullrequests.coffee' %}"></script>
+      <script type="text/coffeescript" src="{% static 'angular/services/sprints.coffee' %}"></script>
       <script type="text/coffeescript" src="{% static 'angular/services/releases.coffee' %}"></script>
 
       <!-- controllers -->
       <script type="text/coffeescript" src="{% static 'angular/controllers/dashboard-toolbar.coffee' %}"></script>
       <script type="text/coffeescript" src="{% static 'angular/controllers/pullrequests.coffee' %}"></script>
+      <script type="text/coffeescript" src="{% static 'angular/controllers/sprints.coffee' %}"></script>
       <script type="text/coffeescript" src="{% static 'angular/controllers/releases.coffee' %}"></script>
     {% endcompress js %}
   </body>
