@@ -1,3 +1,5 @@
+import logging
+
 import arrow
 from pybitbucket.bitbucket import Client
 from pybitbucket.pullrequest import PullRequest
@@ -5,6 +7,10 @@ from pybitbucket.repository import Repository
 from pybitbucket.auth import BasicAuthenticator
 
 from fancy_dashboard.dashboard.models.pullrequests import PullRequest as PullRequestModel, PullRequestApproval
+
+log = logging.getLogger(__name__)
+
+project_repos = 'https://api.bitbucket.org/2.0/repositories{/owner}{?q}'
 
 
 def get_user_for_activity(activity):
@@ -25,10 +31,17 @@ def get_pullrequests(client):
         )
     )
 
-    repositories = [repo.slug for repo in Repository.find_repositories_by_owner_and_role(role='owner', client=bitbucket)]
+    repositories = bitbucket.remote_relationship(
+        project_repos,
+        owner=client.username,
+        q='project.key="ACTIVE"',
+    )
+
     existing_keys = []
 
     for repo in repositories:
+        repo = repo.slug
+        log.error("Repository: %s" % repo)
         for pr in PullRequest.find_pullrequests_for_repository_by_state(repo, client=bitbucket):
             if type(pr) == dict:
                 continue

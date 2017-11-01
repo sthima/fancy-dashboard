@@ -21,11 +21,11 @@ app.conf.update(
         # crontab(hour=0, minute=0, day_of_week='saturday')
         'pullrequest-fetcher': {  # example: 'file-backup'
             'task': 'fancy_dashboard.dashboard.tasks.load_pullrequests',  # example: 'files.tasks.cleanup'
-            'schedule': crontab(minute='*/6')
+            'schedule': crontab(minute='*/10')
         },
         'release-fetcher': {  # example: 'file-backup'
             'task': 'fancy_dashboard.dashboard.tasks.load_releases',  # example: 'files.tasks.cleanup'
-            'schedule': crontab(minute='*/10')
+            'schedule': crontab(minute='*/12')
         },
         'sprint-fetcher': {  # example: 'file-backup'
             'task': 'fancy_dashboard.dashboard.tasks.load_sprint_issues',  # example: 'files.tasks.cleanup'
