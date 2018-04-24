@@ -1,6 +1,6 @@
 from django.db import models
 
-from fancy_dashboard.bitbucket.models.client import BitbucketClient
+from fancy_dashboard.bitbucket.models.client import BaseClient
 
 
 class PullRequest(models.Model):
@@ -13,7 +13,7 @@ class PullRequest(models.Model):
     last_build = models.CharField(max_length=500, null=True)
     url = models.TextField()
 
-    client = models.ForeignKey(BitbucketClient, related_name='pullrequests')
+    client = models.ForeignKey(BaseClient, related_name='pullrequests')
 
     def __str__(self):
         return self.key

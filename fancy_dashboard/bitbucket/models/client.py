@@ -1,8 +1,11 @@
 from django.db import models
 
 
-class BitbucketClient(models.Model):
+class BaseClient(models.Model):
     username = models.CharField(max_length=200)
+
+
+class BitbucketClient(BaseClient):
     password = models.TextField()
     email = models.EmailField()
 
@@ -13,3 +16,15 @@ class BitbucketClient(models.Model):
     # TODO decode using salt from settings
     def get_password(self):
         return self.password
+
+
+class GithubClient(BaseClient):
+    token = models.TextField()
+
+    # TODO encrypt using salt from settings
+    def set_token(self, token):
+        self.token = token
+
+    # TODO decode using salt from settings
+    def get_token(self):
+        return self.token

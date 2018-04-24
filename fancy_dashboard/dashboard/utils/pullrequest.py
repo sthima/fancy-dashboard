@@ -1,6 +1,8 @@
 import logging
+import os
 
 import arrow
+import requests
 from pybitbucket.bitbucket import Client
 from pybitbucket.pullrequest import PullRequest
 from pybitbucket.repository import Repository
@@ -10,7 +12,15 @@ from fancy_dashboard.dashboard.models.pullrequests import PullRequest as PullReq
 
 log = logging.getLogger(__name__)
 
-project_repos = 'https://api.bitbucket.org/2.0/repositories{/owner}{?q}'
+BITBUCKET_ENDPOINT = 'https://api.bitbucket.org/2.0/repositories{/owner}{?q}'
+GITHUB_ENDPOINT = "https://api.github.com/graphql"
+
+GITHUB_PR_QUERY = open(os.path.join(
+    os.path.dirname(os.path.realpath(__file__)),
+    "..",
+    "queries",
+    "github",
+    "pullrequests.gql")).read()
 
 
 def get_user_for_activity(activity):
@@ -22,7 +32,7 @@ def get_user_for_activity(activity):
 
 
 # def get_pullrequests(username, password, email):
-def get_pullrequests(client):
+def get_bitbucket_pullrequests(client):
     bitbucket = Client(
         BasicAuthenticator(
             client.username,  # Username
@@ -32,7 +42,7 @@ def get_pullrequests(client):
     )
 
     repositories = bitbucket.remote_relationship(
-        project_repos,
+        BITBUCKET_ENDPOINT,
         owner=client.username,
         q='project.key="ACTIVE"',
     )
@@ -90,4 +100,69 @@ def get_pullrequests(client):
                 approval.avatar = a['approval']['user']['links']['avatar']['href']
                 approval.pullrequest = pull_request
                 approval.save()
+    PullRequestModel.objects.filter(client=client).exclude(key__in=existing_keys).all().delete()
+
+
+def get_github_pullrequests(client):
+    headers = {"Authorization": "Bearer {}".format(client.token)}
+
+    variables = {
+        "login": client.username
+    }
+
+    response = requests.post(
+        GITHUB_ENDPOINT,
+        json={ "query": GITHUB_PR_QUERY, "variables": variables},
+        headers=headers)
+
+    if response.status_code != 200:
+        log.error("HTTP error while trying to fetch GitHub PRs")
+        return
+
+    json_data, errors = response.json()["data"], response.json().get("errors")
+    if errors:
+        log.error("GraphQL error while trying to fetch GitHub PRs:\n")
+        log.error(errors)
+        return
+
+    existing_keys = []
+    for repository in json_data["organization"]["repositories"]["nodes"]:
+        for pull_request in repository["pullRequests"]["nodes"]:
+            if pull_request["state"] != "OPEN":
+                continue
+
+            key = "{}-{}".format(repository['name'], pull_request['number'])
+            existing_keys.append(key)
+            db_pull_request = PullRequestModel.objects.filter(client=client) \
+                                              .filter(key=key).first()
+
+            if not db_pull_request:
+                db_pull_request = PullRequestModel()
+                db_pull_request.key = key
+                db_pull_request.client = client
+
+            db_pull_request.updated_on = pull_request["updatedAt"]
+            db_pull_request.author = pull_request["author"]["login"]
+            db_pull_request.url = pull_request["url"]
+
+            # NOTE (mmarchini: We don't have this info yet, so keep those fields
+            # empty.
+            db_pull_request.updated_by = "unknown"
+            db_pull_request.task_count = 0
+            db_pull_request.build_count = 0
+            db_pull_request.last_build = None
+
+            db_pull_request.save()
+
+            if db_pull_request.approvals.count():
+                db_pull_request.approvals.all().delete()
+
+            for a in pull_request["reviews"]["nodes"]:
+                author = a['author']
+                approval = PullRequestApproval()
+                approval.display_name = author["login"]
+                approval.avatar = author["avatarUrl"]
+                approval.pullrequest = db_pull_request
+                approval.save()
+
     PullRequestModel.objects.filter(client=client).exclude(key__in=existing_keys).all().delete()
