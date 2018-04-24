@@ -1,15 +1,19 @@
 from django.views.generic import View
 from braces.views import JSONResponseMixin
 
-from fancy_dashboard.bitbucket.models import BitbucketClient
+from fancy_dashboard.bitbucket.models import BitbucketClient, GithubClient
 from fancy_dashboard.dashboard.models.pullrequests import PullRequest as PullRequestModel
-from ..utils import get_pullrequests
+from ..utils import get_bitbucket_pullrequests, get_github_pullrequests
 
 
 class LoadPullRequestJsonView(JSONResponseMixin, View):
     def get(self, request, *args, **kwargs):
         for client in BitbucketClient.objects.all():
-            get_pullrequests(
+            get_bitbucket_pullrequests(
+                client,
+            )
+        for client in GithubClient.objects.all():
+            get_github_pullrequests(
                 client,
             )
 
